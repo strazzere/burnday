@@ -17,8 +17,7 @@ jobs:
       with:
         node-version: '20.x'
     - name: Fetch latest data
-    - run: npm ci
-    - run: npm start
+      run: npm ci && npm start
     - name: Commit and push if it changed
       run: |-
         git config user.name "Automated for diff"
