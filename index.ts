@@ -1,5 +1,24 @@
 import axios from 'axios';
 import { load } from 'cheerio';
+import path from 'path';
+import * as fs from 'fs';
+
+function addDateToJsonFile(filePath: string, isBurnDay: boolean) {
+  const data = fs.readFileSync(filePath, 'utf-8');
+  const jsonData = JSON.parse(data);
+
+  if (Array.isArray(jsonData)) {
+
+    const data = {
+      date: new Date().toUTCString(),
+      allowedBurn: isBurnDay
+    };
+    jsonData.push(data);
+
+    fs.writeFileSync(filePath, JSON.stringify(jsonData, null, 2));
+
+  }
+};
 
 const burnDayUrl = 'https://itwebservices.placer.ca.gov/APCDBDI/home/'
 
@@ -66,5 +85,7 @@ axios.get(burnDayUrl)
       console.log(`Page was not as expected, likely need to adjust selectors.`)
     }
   
-    console.log(isBurnDate($(burnDataSelector).html()?.trimEnd().trimStart()))
+    const isBurnDay = isBurnDate($(burnDataSelector).html()?.trimEnd().trimStart())
+
+    addDateToJsonFile(path.join(__dirname, 'history/burnday.json'), isBurnDay);
   })
