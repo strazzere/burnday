@@ -1,0 +1,21 @@
+{
+  "name": "burnday",
+  "version": "1.0.0",
+  "description": "Is it a burn day in Penryn",
+  "main": "index.js",
+  "scripts": {
+    "start": "node --loader ts-node/esm index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Tim 'diff' Strazzere <diff@protonmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "axios": "^1.5.1",
+    "cheerio": "^1.0.0-rc.12"
+  }
+}
