@@ -29,6 +29,6 @@
   },
   {
     "date": "Mon, 30 Oct 2023 13:04:06 GMT",
-    "allowedBurn": false
+    "allowedBurn": true
   }
 ]

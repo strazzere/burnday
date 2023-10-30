@@ -9,6 +9,18 @@ function addDateToJsonFile(filePath: string, isBurnDay: boolean) {
 
   if (Array.isArray(jsonData)) {
 
+    const today = jsonData.filter((data) => {
+      const date = new Date(data.date);
+      const today = new Date();
+      return date.getDate() === today.getDate() &&
+        date.getMonth() === today.getMonth() &&
+        date.getFullYear() === today.getFullYear();
+    })
+
+    if (today.length > 0) {
+      return;
+    }
+
     const data = {
       date: new Date().toUTCString(),
       allowedBurn: isBurnDay
@@ -22,11 +34,11 @@ function addDateToJsonFile(filePath: string, isBurnDay: boolean) {
 
 const burnDayUrl = 'https://itwebservices.placer.ca.gov/APCDBDI/home/'
 
-const westernSelector = 'zbody > div.container.body-content > div > table > tbody > tr:nth-child(1) > td:nth-child(1)';
+const westernSelector = 'body > div.container.body-content > div > table > tbody > tr:nth-child(1) > td:nth-child(1)';
 const expectedWestern = 'Western Placer County (West of Cisco Grove)';
 
-const dateSelector = 'body > div.container.body-content > div > table > thead > tr > th:nth-child(3)';
-const burnDataSelector = 'body > div.container.body-content > div > table > tbody > tr:nth-child(1) > td:nth-child(3)';
+const dateSelector = 'body > div.container.body-content > div > table > thead > tr > th:nth-child(4)';
+const burnDataSelector = 'body > div.container.body-content > div > table > tbody > tr:nth-child(1) > td:nth-child(4)';
 
 function isToday(date: string): boolean {
   const months: { [key: string]: number } = {
@@ -79,13 +91,14 @@ function isBurnDate(info: string | undefined) {
 
 axios.get(burnDayUrl)
   .then((response) => {
-    const $ = load(response.data)
+    const $ = load(response.data);
     
     if (!expected($(westernSelector).html(), $(dateSelector).html())) {
-      console.log(`Page was not as expected, likely need to adjust selectors.`)
+      console.log(`Page was not as expected, likely need to adjust selectors.`);
+      return;
     }
   
-    const isBurnDay = isBurnDate($(burnDataSelector).html()?.trimEnd().trimStart())
+    const isBurnDay = isBurnDate($(burnDataSelector).html()?.trimEnd().trimStart());
 
     addDateToJsonFile(path.join(__dirname, 'history/burnday.json'), isBurnDay);
   })
