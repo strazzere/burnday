@@ -94,8 +94,7 @@ axios.get(burnDayUrl)
     const $ = load(response.data);
     
     if (!expected($(westernSelector).html(), $(dateSelector).html())) {
-      console.log(`Page was not as expected, likely need to adjust selectors.`);
-      return;
+      throw new Error(`Page was not as expected, likely need to adjust selectors.`);
     }
   
     const isBurnDay = isBurnDate($(burnDataSelector).html()?.trimEnd().trimStart());
