@@ -150,5 +150,9 @@
   {
     "date": "Fri, 01 Dec 2023 13:04:56 GMT",
     "allowedBurn": true
+  },
+  {
+    "date": "Sat, 02 Dec 2023 13:03:00 GMT",
+    "allowedBurn": true
   }
 ]
