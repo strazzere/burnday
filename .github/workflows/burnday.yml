@@ -3,6 +3,7 @@ name: Check for burn day
 on:
   schedule:
   - cron: '0 13 * * *'
+  workflow_dispatch:
 
 jobs:
   scheduled:
