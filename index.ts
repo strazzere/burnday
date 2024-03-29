@@ -3,6 +3,15 @@ import { load } from 'cheerio';
 import path from 'path';
 import * as fs from 'fs';
 
+function overwriteToJsonFile(filePath: string, isBurnDay: boolean) {
+  const jsonData = {
+    date: new Date().toUTCString(),
+    allowedBurn: isBurnDay
+  };
+
+  fs.writeFileSync(filePath, JSON.stringify(jsonData, null, 2));
+}
+
 function addDateToJsonFile(filePath: string, isBurnDay: boolean) {
   const data = fs.readFileSync(filePath, 'utf-8');
   const jsonData = JSON.parse(data);
@@ -99,5 +108,6 @@ axios.get(burnDayUrl)
   
     const isBurnDay = isBurnDate($(burnDataSelector).html()?.trimEnd().trimStart());
 
-    addDateToJsonFile(path.join(__dirname, 'history/burnday.json'), isBurnDay);
+    addDateToJsonFile(path.join(__dirname, 'data/burnday-history.json'), isBurnDay);
+    overwriteToJsonFile(path.join(__dirname, 'data/burnday.json'), isBurnDay);
   })
