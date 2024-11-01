@@ -1434,5 +1434,9 @@
   {
     "date": "Thu, 31 Oct 2024 13:07:47 GMT",
     "allowedBurn": false
+  },
+  {
+    "date": "Fri, 01 Nov 2024 13:07:00 GMT",
+    "allowedBurn": true
   }
 ]
