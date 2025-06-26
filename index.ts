@@ -43,7 +43,7 @@ function addDateToJsonFile(filePath: string, isBurnDay: boolean) {
 
 const burnDayUrl = "https://itwebservices.placer.ca.gov/APCDBDI/home/";
 
-const westernTable =
+const _westernTable =
 	"body > div.container.body-content > div > table > tbody > tr:nth-child(1) > td:nth-child(1)";
 
 const westernSelector = westernRowSelector(1);
@@ -56,6 +56,7 @@ const dateSelector =
 const burnDataSelector = westernRowSelector(4);
 
 const burnBan = "BURN BAN IN EFFECT UNTIL FURTHER NOTICE".toLowerCase();
+const calFire = "CAL FIRE Permit Suspension".toLowerCase();
 
 function westernRowSelector(column: number): string {
 	return `body > div.container.body-content > div > table > tbody > tr:nth-child(1) > td:nth-child(${column})`;
@@ -110,7 +111,10 @@ function isBurnDate(info: string | undefined) {
 axios.get(burnDayUrl).then((response) => {
 	const $ = load(response.data);
 
-	if ($(permitInfoSelector).html()?.toLowerCase().includes(burnBan)) {
+	if (
+		$(permitInfoSelector).html()?.toLowerCase().includes(burnBan) ||
+		$(permitInfoSelector).html()?.toLowerCase().includes(calFire)
+	) {
 		addDateToJsonFile(path.join(__dirname, "data/burnday-history.json"), false);
 		overwriteToJsonFile(path.join(__dirname, "data/burnday.json"), false);
 		return;
