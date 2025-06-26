@@ -2354,5 +2354,17 @@
   {
     "date": "Mon, 23 Jun 2025 13:13:44 GMT",
     "allowedBurn": false
+  },
+  {
+    "date": "Mon, 24 Jun 2025 13:13:44 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Mon, 25 Jun 2025 13:13:44 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Thu, 26 Jun 2025 18:55:03 GMT",
+    "allowedBurn": false
   }
 ]
