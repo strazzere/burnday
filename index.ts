@@ -80,9 +80,9 @@ function isToday(date: string): boolean {
 
 	const parts = date.split(", ");
 	const dateParts = parts[1].split(" ");
-	const year = Number.parseInt(parts[2]);
+	const year = Number.parseInt(parts[2], 10);
 	const month = months[dateParts[0]];
-	const day = Number.parseInt(dateParts[1]);
+	const day = Number.parseInt(dateParts[1], 10);
 
 	const givenDate = new Date(year, month, day);
 	const today = new Date();
