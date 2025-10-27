@@ -2846,5 +2846,9 @@
   {
     "date": "Sun, 26 Oct 2025 13:08:00 GMT",
     "allowedBurn": true
+  },
+  {
+    "date": "Mon, 27 Oct 2025 13:12:31 GMT",
+    "allowedBurn": true
   }
 ]
