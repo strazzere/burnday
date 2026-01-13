@@ -3138,5 +3138,9 @@
   {
     "date": "Mon, 12 Jan 2026 13:17:04 GMT",
     "allowedBurn": false
+  },
+  {
+    "date": "Tue, 13 Jan 2026 13:16:56 GMT",
+    "allowedBurn": false
   }
 ]
