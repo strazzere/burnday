@@ -1,7 +1,7 @@
 import * as fs from "node:fs";
 import path from "node:path";
 import axios from "axios";
-import { load, type CheerioAPI } from "cheerio";
+import { type CheerioAPI, load } from "cheerio";
 
 function overwriteToJsonFile(filePath: string, isBurnDay: boolean) {
 	const jsonData = {
@@ -43,9 +43,6 @@ function addDateToJsonFile(filePath: string, isBurnDay: boolean) {
 
 const burnDayUrl = "https://itwebservices.placer.ca.gov/APCDBDI/home/";
 
-const _westernTable =
-	"body > div.container.body-content > div > table > tbody > tr:nth-child(1) > td:nth-child(1)";
-
 const westernSelector = westernRowSelector(1);
 const expectedWestern = "Western Placer County (West of Cisco Grove)";
 
@@ -68,24 +65,43 @@ function findTodayColumnIndex($: CheerioAPI): number {
 		December: 11,
 	};
 
-	const todayDay = today.getDate();
-	const todayMonth = today.toLocaleDateString("en-US", { month: "long" });
-	const todayYear = today.getFullYear();
-
 	const headerSelector =
 		"body > div.container.body-content > div > table > thead > tr > th";
 	let todayColumnIndex = -1;
 
 	$(headerSelector).each((index: number, element) => {
 		const headerText = $(element).text().trim();
-		// Check if this header contains today's date
-		if (
-			headerText.includes(todayMonth) &&
-			headerText.includes(todayDay.toString()) &&
-			headerText.includes(todayYear.toString())
-		) {
-			todayColumnIndex = index + 1; // nth-child is 1-indexed
-			return false; // break the loop
+
+		// Skip non-date columns
+		if (headerText === "Area" || headerText === "Permit Info.") {
+			return;
+		}
+
+		// Parse the date from the header (format: "Monday, January 20, 2026")
+		try {
+			const parts = headerText.split(", ");
+			if (parts.length >= 3) {
+				const dateParts = parts[1].split(" "); // ["January", "20"]
+				const year = Number.parseInt(parts[2], 10);
+				const month = months[dateParts[0]];
+				const day = Number.parseInt(dateParts[1], 10);
+
+				if (month !== undefined && !Number.isNaN(day) && !Number.isNaN(year)) {
+					const headerDate = new Date(year, month, day);
+
+					// Check if this date matches today
+					if (
+						headerDate.getDate() === today.getDate() &&
+						headerDate.getMonth() === today.getMonth() &&
+						headerDate.getFullYear() === today.getFullYear()
+					) {
+						todayColumnIndex = index + 1; // nth-child is 1-indexed
+						return false; // break the loop
+					}
+				}
+			}
+		} catch (_error) {
+			// Skip columns that don't parse as dates
 		}
 	});
 
@@ -129,14 +145,6 @@ function isToday(date: string): boolean {
 		givenDate.getMonth() === today.getMonth() &&
 		givenDate.getFullYear() === today.getFullYear()
 	);
-}
-
-function expected(western: string | null, date: string | null): boolean {
-	if (!western || !date) return false;
-
-	if (western.indexOf(expectedWestern) === -1) return false;
-
-	return isToday(date);
 }
 
 function isBurnDate(info: string | undefined) {
