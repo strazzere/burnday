@@ -1,7 +1,10 @@
 import * as fs from "node:fs";
+import * as https from "node:https";
 import path from "node:path";
 import axios from "axios";
 import { type CheerioAPI, load } from "cheerio";
+
+const httpsAgent = new https.Agent({ rejectUnauthorized: false });
 
 function overwriteToJsonFile(filePath: string, isBurnDay: boolean) {
 	const jsonData = {
@@ -153,7 +156,7 @@ function isBurnDate(info: string | undefined) {
 	return !info.includes("No ");
 }
 
-axios.get(burnDayUrl).then((response) => {
+axios.get(burnDayUrl, { httpsAgent }).then((response) => {
 	const $ = load(response.data);
 
 	// Check for burn bans first
