@@ -44,7 +44,7 @@ function addDateToJsonFile(filePath: string, isBurnDay: boolean) {
 	}
 }
 
-const burnDayUrl = "https://itwebservices.placer.ca.gov/APCDBDI/home/";
+const burnDayUrl = "https://itwebservices.placer.ca.gov/apcdbdi/home/";
 
 const westernSelector = westernRowSelector(1);
 const expectedWestern = "Western Placer County (West of Cisco Grove)";
@@ -156,7 +156,12 @@ function isBurnDate(info: string | undefined) {
 	return !info.includes("No ");
 }
 
-axios.get(burnDayUrl, { httpsAgent }).then((response) => {
+const headers = {
+	"User-Agent":
+		"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+};
+
+axios.get(burnDayUrl, { httpsAgent, headers }).then((response) => {
 	const $ = load(response.data);
 
 	// Check for burn bans first
@@ -180,9 +185,10 @@ axios.get(burnDayUrl, { httpsAgent }).then((response) => {
 	// Find today's date column dynamically
 	const todayColumnIndex = findTodayColumnIndex($);
 	if (todayColumnIndex === -1) {
-		throw new Error(
-			"Page was not as expected: could not find today's date column.",
+		console.warn(
+			"Could not find today's date column - site may not be updated yet.",
 		);
+		process.exit(0);
 	}
 
 	// Get the date from the header to verify
