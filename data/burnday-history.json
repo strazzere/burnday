@@ -3750,5 +3750,509 @@
   {
     "date": "Mon, 15 Jun 2026 15:02:42 GMT",
     "allowedBurn": false
+  },
+  {
+    "date": "Tue, 16 Jun 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Wed, 17 Jun 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Thu, 18 Jun 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Fri, 19 Jun 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Sat, 20 Jun 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Sun, 21 Jun 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Mon, 22 Jun 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Tue, 23 Jun 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Wed, 24 Jun 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Thu, 25 Jun 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Fri, 26 Jun 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Sat, 27 Jun 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Sun, 28 Jun 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Mon, 29 Jun 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Tue, 30 Jun 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Wed, 01 Jul 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Thu, 02 Jul 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Fri, 03 Jul 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Sat, 04 Jul 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Sun, 05 Jul 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Mon, 06 Jul 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Tue, 07 Jul 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Wed, 08 Jul 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Thu, 09 Jul 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Fri, 10 Jul 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Sat, 11 Jul 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Sun, 12 Jul 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Mon, 13 Jul 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Tue, 14 Jul 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Wed, 15 Jul 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Thu, 16 Jul 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Fri, 17 Jul 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Sat, 18 Jul 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Sun, 19 Jul 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Mon, 20 Jul 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Tue, 21 Jul 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Wed, 22 Jul 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Thu, 23 Jul 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Fri, 24 Jul 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Sat, 25 Jul 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Sun, 26 Jul 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Mon, 27 Jul 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Tue, 28 Jul 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Wed, 29 Jul 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Thu, 30 Jul 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Fri, 31 Jul 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Sat, 01 Aug 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Sun, 02 Aug 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Mon, 03 Aug 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Tue, 04 Aug 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Wed, 05 Aug 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Thu, 06 Aug 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Fri, 07 Aug 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Sat, 08 Aug 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Sun, 09 Aug 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Mon, 10 Aug 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Tue, 11 Aug 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Wed, 12 Aug 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Thu, 13 Aug 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Fri, 14 Aug 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Sat, 15 Aug 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Sun, 16 Aug 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Mon, 17 Aug 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Tue, 18 Aug 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Wed, 19 Aug 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Thu, 20 Aug 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Fri, 21 Aug 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Sat, 22 Aug 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Sun, 23 Aug 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Mon, 24 Aug 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Tue, 25 Aug 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Wed, 26 Aug 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Thu, 27 Aug 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Fri, 28 Aug 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Sat, 29 Aug 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Sun, 30 Aug 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Mon, 31 Aug 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Tue, 01 Sep 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Wed, 02 Sep 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Thu, 03 Sep 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Fri, 04 Sep 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Sat, 05 Sep 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Sun, 06 Sep 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Mon, 07 Sep 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Tue, 08 Sep 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Wed, 09 Sep 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Thu, 10 Sep 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Fri, 11 Sep 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Sat, 12 Sep 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Sun, 13 Sep 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Mon, 14 Sep 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Tue, 15 Sep 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Wed, 16 Sep 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Thu, 17 Sep 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Fri, 18 Sep 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Sat, 19 Sep 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Sun, 20 Sep 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Mon, 21 Sep 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Tue, 22 Sep 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Wed, 23 Sep 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Thu, 24 Sep 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Fri, 25 Sep 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Sat, 26 Sep 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Sun, 27 Sep 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Mon, 28 Sep 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Tue, 29 Sep 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Wed, 30 Sep 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Thu, 01 Oct 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Fri, 02 Oct 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Sat, 03 Oct 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Sun, 04 Oct 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Mon, 05 Oct 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Tue, 06 Oct 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Wed, 07 Oct 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Thu, 08 Oct 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Fri, 09 Oct 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Sat, 10 Oct 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Sun, 11 Oct 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Mon, 12 Oct 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Tue, 13 Oct 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Wed, 14 Oct 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Thu, 15 Oct 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Fri, 16 Oct 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Sat, 17 Oct 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Sun, 18 Oct 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Mon, 19 Oct 2026 18:15:55 GMT",
+    "allowedBurn": false
   }
 ]

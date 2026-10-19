@@ -44,6 +44,38 @@ function addDateToJsonFile(filePath: string, isBurnDay: boolean) {
 	}
 }
 
+// Record "no burn" for every day after the last history entry up to today, for
+// when the site hasn't been updated (or this job didn't run) for a while.
+function backfillNoBurn(filePath: string) {
+	const jsonData = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+	if (!Array.isArray(jsonData) || jsonData.length === 0) {
+		return;
+	}
+
+	const last = new Date(jsonData[jsonData.length - 1].date);
+	const day = Date.UTC(
+		last.getUTCFullYear(),
+		last.getUTCMonth(),
+		last.getUTCDate(),
+	);
+	const now = new Date();
+	const todayUtc = Date.UTC(
+		now.getUTCFullYear(),
+		now.getUTCMonth(),
+		now.getUTCDate(),
+	);
+
+	// Backfilled days are stamped mid-morning UTC, like the real runs.
+	for (let d = day + 86400000; d < todayUtc; d += 86400000) {
+		jsonData.push({
+			date: new Date(d + 14 * 3600000).toUTCString(),
+			allowedBurn: false,
+		});
+	}
+
+	fs.writeFileSync(filePath, JSON.stringify(jsonData, null, 2));
+}
+
 const burnDayUrl = "https://itwebservices.placer.ca.gov/apcdbdi/home/";
 
 const westernSelector = westernRowSelector(1);
@@ -109,6 +141,41 @@ function findTodayColumnIndex($: CheerioAPI): number {
 	});
 
 	return todayColumnIndex;
+}
+
+// Latest date among the table headers, or undefined if none parse.
+function latestHeaderDate($: CheerioAPI): Date | undefined {
+	const months = [
+		"January",
+		"February",
+		"March",
+		"April",
+		"May",
+		"June",
+		"July",
+		"August",
+		"September",
+		"October",
+		"November",
+		"December",
+	];
+	const headerSelector =
+		"body > div.container.body-content > div > table > thead > tr > th";
+	let latest: Date | undefined;
+
+	$(headerSelector).each((_index: number, element) => {
+		const parts = $(element).text().trim().split(", ");
+		if (parts.length < 3) return;
+		const [monthName, dayText] = parts[1].split(" ");
+		const month = months.indexOf(monthName);
+		const day = Number.parseInt(dayText, 10);
+		const year = Number.parseInt(parts[2], 10);
+		if (month === -1 || Number.isNaN(day) || Number.isNaN(year)) return;
+		const date = new Date(year, month, day);
+		if (!latest || date > latest) latest = date;
+	});
+
+	return latest;
 }
 
 const burnBan = "BURN BAN IN EFFECT UNTIL FURTHER NOTICE".toLowerCase();
@@ -185,10 +252,26 @@ axios.get(burnDayUrl, { httpsAgent, headers }).then((response) => {
 	// Find today's date column dynamically
 	const todayColumnIndex = findTodayColumnIndex($);
 	if (todayColumnIndex === -1) {
+		const latest = latestHeaderDate($);
+		const startOfToday = new Date();
+		startOfToday.setHours(0, 0, 0, 0);
+
+		// Only default to "no burn" when the site is explicitly out of date.
+		// Anything else (no parseable dates, gaps) means the page changed.
+		if (!latest || latest >= startOfToday) {
+			throw new Error(
+				"Page was not as expected: could not find today's date column.",
+			);
+		}
+
 		console.warn(
-			"Could not find today's date column - site may not be updated yet.",
+			`Site not updated (latest date ${latest.toDateString()}) - defaulting to no burn.`,
 		);
-		process.exit(0);
+		const historyPath = path.join(__dirname, "data/burnday-history.json");
+		backfillNoBurn(historyPath);
+		addDateToJsonFile(historyPath, false);
+		overwriteToJsonFile(path.join(__dirname, "data/burnday.json"), false);
+		return;
 	}
 
 	// Get the date from the header to verify
