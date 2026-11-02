@@ -6,16 +6,30 @@ import { type CheerioAPI, load } from "cheerio";
 
 const httpsAgent = new https.Agent({ rejectUnauthorized: false });
 
-function overwriteToJsonFile(filePath: string, isBurnDay: boolean) {
-	const jsonData = {
+type BurnResult = {
+	allowedBurn: boolean;
+	source: "arcgis" | "legacy";
+	status?: string;
+	info?: string;
+};
+
+function toRecord(result: BurnResult) {
+	return {
 		date: new Date().toUTCString(),
-		allowedBurn: isBurnDay,
+		allowedBurn: result.allowedBurn,
+		...(result.status !== undefined && { status: result.status }),
+		...(result.info && { info: result.info }),
+		source: result.source,
 	};
+}
+
+function overwriteToJsonFile(filePath: string, result: BurnResult) {
+	const jsonData = toRecord(result);
 
 	fs.writeFileSync(filePath, JSON.stringify(jsonData, null, 2));
 }
 
-function addDateToJsonFile(filePath: string, isBurnDay: boolean) {
+function addDateToJsonFile(filePath: string, result: BurnResult) {
 	const data = fs.readFileSync(filePath, "utf-8");
 	const jsonData = JSON.parse(data);
 
@@ -34,11 +48,7 @@ function addDateToJsonFile(filePath: string, isBurnDay: boolean) {
 			return;
 		}
 
-		const data = {
-			date: new Date().toUTCString(),
-			allowedBurn: isBurnDay,
-		};
-		jsonData.push(data);
+		jsonData.push(toRecord(result));
 
 		fs.writeFileSync(filePath, JSON.stringify(jsonData, null, 2));
 	}
@@ -228,7 +238,106 @@ const headers = {
 		"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
 };
 
-axios.get(burnDayUrl, { httpsAgent, headers }).then((response) => {
+// Placer County's newer "Burn Day Status" experience
+// (https://experience.arcgis.com/experience/572b2af789e94b2f888c5e0c2b88a589)
+// is backed by this public feature layer. The legacy site above is stale.
+const featureUrl =
+	"https://services9.arcgis.com/NENkjkswKTzMfG3A/arcgis/rest/services/Burn_Day_Status_Public/FeatureServer/0";
+const arcgisArea = "Western Placer County";
+const arcgisTimeZone = "America/Los_Angeles";
+
+// Status codes 1-5 are burn days (with varying hours); 6, 7 and 9 are not.
+function isBurnCode(code: string): boolean {
+	return /^[1-5]-/.test(code);
+}
+
+function pacificDay(ms: number): string {
+	return new Intl.DateTimeFormat("en-CA", { timeZone: arcgisTimeZone }).format(
+		new Date(ms),
+	);
+}
+
+type ArcgisAttributes = {
+	statusDateToday?: number | null;
+	burnStatusToday?: string | null;
+	burnInfoToday?: string | null;
+	statusDateTomorrow?: number | null;
+	burnStatusTomorrow?: string | null;
+	burnInfoTomorrow?: string | null;
+};
+
+// Pick today's status, falling back to the "tomorrow" slot when the county
+// hasn't rolled over yet. Undefined means the data is stale.
+function pickToday(
+	attrs: ArcgisAttributes,
+	now: number,
+): { code: string; info: string } | undefined {
+	const today = pacificDay(now);
+	if (attrs.statusDateToday && pacificDay(attrs.statusDateToday) === today) {
+		return {
+			code: attrs.burnStatusToday ?? "",
+			info: attrs.burnInfoToday ?? "",
+		};
+	}
+	if (
+		attrs.statusDateTomorrow &&
+		pacificDay(attrs.statusDateTomorrow) === today
+	) {
+		return {
+			code: attrs.burnStatusTomorrow ?? "",
+			info: attrs.burnInfoTomorrow ?? "",
+		};
+	}
+	return undefined;
+}
+
+async function fetchArcgisStatus(): Promise<BurnResult | undefined> {
+	const [layer, query] = await Promise.all([
+		axios.get(featureUrl, { params: { f: "json" }, headers }),
+		axios.get(`${featureUrl}/query`, {
+			params: {
+				where: `AreaName='${arcgisArea}'`,
+				outFields: "*",
+				returnGeometry: false,
+				f: "json",
+			},
+			headers,
+		}),
+	]);
+
+	if (query.data.error) {
+		throw new Error(`ArcGIS query failed: ${JSON.stringify(query.data.error)}`);
+	}
+	const attrs: ArcgisAttributes | undefined =
+		query.data.features?.[0]?.attributes;
+	if (!attrs) {
+		throw new Error(`ArcGIS returned no row for "${arcgisArea}".`);
+	}
+
+	const picked = pickToday(attrs, Date.now());
+	if (!picked) {
+		console.warn("ArcGIS status dates are not current.");
+		return undefined;
+	}
+
+	const field = layer.data.fields?.find(
+		(f: { name: string }) => f.name === "burnStatusToday",
+	);
+	const status: string | undefined = field?.domain?.codedValues?.find(
+		(c: { code: string }) => c.code === picked.code,
+	)?.name;
+
+	return {
+		allowedBurn: isBurnCode(picked.code),
+		status: status ?? picked.code,
+		info: picked.info,
+		source: "arcgis",
+	};
+}
+
+// Returns stale=true when the legacy site is explicitly out of date.
+async function scrapeLegacySite(): Promise<BurnResult & { stale?: boolean }> {
+	const response = await axios.get(burnDayUrl, { httpsAgent, headers });
 	const $ = load(response.data);
 
 	// Check for burn bans first
@@ -236,9 +345,7 @@ axios.get(burnDayUrl, { httpsAgent, headers }).then((response) => {
 		$(permitInfoSelector).html()?.toLowerCase().includes(burnBan) ||
 		$(permitInfoSelector).html()?.toLowerCase().includes(calFire)
 	) {
-		addDateToJsonFile(path.join(__dirname, "data/burnday-history.json"), false);
-		overwriteToJsonFile(path.join(__dirname, "data/burnday.json"), false);
-		return;
+		return { allowedBurn: false, source: "legacy" };
 	}
 
 	// Verify we found the Western Placer row
@@ -267,11 +374,7 @@ axios.get(burnDayUrl, { httpsAgent, headers }).then((response) => {
 		console.warn(
 			`Site not updated (latest date ${latest.toDateString()}) - defaulting to no burn.`,
 		);
-		const historyPath = path.join(__dirname, "data/burnday-history.json");
-		backfillNoBurn(historyPath);
-		addDateToJsonFile(historyPath, false);
-		overwriteToJsonFile(path.join(__dirname, "data/burnday.json"), false);
-		return;
+		return { allowedBurn: false, source: "legacy", stale: true };
 	}
 
 	// Get the date from the header to verify
@@ -287,13 +390,30 @@ axios.get(burnDayUrl, { httpsAgent, headers }).then((response) => {
 
 	// Get burn data from today's column
 	const burnDataSelector = westernRowSelector(todayColumnIndex);
-	const isBurnDay = isBurnDate(
-		$(burnDataSelector).html()?.trimEnd().trimStart(),
-	);
+	return {
+		allowedBurn: isBurnDate($(burnDataSelector).html()?.trimEnd().trimStart()),
+		source: "legacy",
+	};
+}
 
-	addDateToJsonFile(
-		path.join(__dirname, "data/burnday-history.json"),
-		isBurnDay,
-	);
-	overwriteToJsonFile(path.join(__dirname, "data/burnday.json"), isBurnDay);
+async function main() {
+	let result: (BurnResult & { stale?: boolean }) | undefined;
+	try {
+		result = await fetchArcgisStatus();
+	} catch (error) {
+		console.warn("ArcGIS lookup failed, falling back to legacy site:", error);
+	}
+	if (!result) {
+		result = await scrapeLegacySite();
+	}
+
+	const historyPath = path.join(__dirname, "data/burnday-history.json");
+	backfillNoBurn(historyPath);
+	addDateToJsonFile(historyPath, result);
+	overwriteToJsonFile(path.join(__dirname, "data/burnday.json"), result);
+}
+
+main().catch((error) => {
+	console.error(error);
+	process.exit(1);
 });
