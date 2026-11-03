@@ -1,7 +1,7 @@
 {
-  "date": "Mon, 02 Nov 2026 22:00:30 GMT",
-  "allowedBurn": false,
-  "status": "BURNING SUSPENDED",
-  "info": "CAL FIRE has suspended burning",
+  "date": "Tue, 03 Nov 2026 17:23:52 GMT",
+  "allowedBurn": true,
+  "status": "Burn Day with Unrestricted Hours",
+  "info": "Fire agency permit required",
   "source": "arcgis"
 }
