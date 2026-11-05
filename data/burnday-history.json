@@ -4327,5 +4327,12 @@
     "status": "Burn Day with Unrestricted Hours",
     "info": "Fire agency permit required",
     "source": "arcgis"
+  },
+  {
+    "date": "Thu, 05 Nov 2026 20:23:49 GMT",
+    "allowedBurn": true,
+    "status": "Burn Day with Unrestricted Hours",
+    "info": "Fire agency permit required",
+    "source": "arcgis"
   }
 ]
