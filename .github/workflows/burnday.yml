@@ -14,7 +14,7 @@ jobs:
     - name: Check out this repo
       uses: actions/checkout@v7
     - name: Use Node.js
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v7
       with:
         node-version: '26.x'
     - name: Install dependencies
@@ -31,7 +31,7 @@ jobs:
     - name: Check out this repo
       uses: actions/checkout@v7
     - name: Use Node.js
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v7
       with:
         node-version: '26.x'
     - name: Fetch latest data
