@@ -1,7 +1,7 @@
 {
-  "date": "Wed, 11 Nov 2026 19:55:17 GMT",
-  "allowedBurn": false,
-  "status": "No Burn Day",
-  "info": "No burn, federal holiday",
+  "date": "Thu, 12 Nov 2026 17:30:21 GMT",
+  "allowedBurn": true,
+  "status": "Burn Day with Unrestricted Hours",
+  "info": "Fire agency permit required",
   "source": "arcgis"
 }
