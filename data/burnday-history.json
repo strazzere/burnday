@@ -4450,5 +4450,15 @@
     "allowedBurn": true,
     "status": "Burn Day with Unrestricted Hours",
     "source": "arcgis"
+  },
+  {
+    "date": "Mon, 23 Nov 2026 14:00:00 GMT",
+    "allowedBurn": false
+  },
+  {
+    "date": "Tue, 24 Nov 2026 00:28:30 GMT",
+    "allowedBurn": true,
+    "status": "Burn Day with Unrestricted Hours",
+    "source": "arcgis"
   }
 ]
